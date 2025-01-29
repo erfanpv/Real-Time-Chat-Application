@@ -22,7 +22,6 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (e.g., mobile apps, some environments like server-side requests)
       if (
         !origin ||
         origin.startsWith("http://") ||
@@ -33,7 +32,7 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
-    credentials: true, // Enable credentials (cookies, authorization headers)
+    credentials: true, 
   })
 );
 
