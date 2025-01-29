@@ -6,9 +6,11 @@ import asyncHandler from "../middleware/async.handler.js";
 
 export const getUsersForSidebar = asyncHandler(async (req, res) => {
   const loggedInUserId = req.user._id;
-  const users = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
+  const users = await User.find({ _id: { $ne: loggedInUserId } }).select(
+    "-password"
+  );
 
-  res.status(200).json({ success: true, users });
+  res.status(200).json(users);
 });
 
 export const getMessages = asyncHandler(async (req, res) => {
@@ -22,7 +24,7 @@ export const getMessages = asyncHandler(async (req, res) => {
     ],
   });
 
-  res.status(200).json({ success: true, messages });
+  res.status(200).json(messages);
 });
 
 export const sendMessage = asyncHandler(async (req, res) => {
@@ -48,5 +50,5 @@ export const sendMessage = asyncHandler(async (req, res) => {
     io.to(receiverSocketId).emit("newMessage", newMessage);
   }
 
-  res.status(201).json({ success: true, message: newMessage });
+  res.status(201).json(newMessage);
 });

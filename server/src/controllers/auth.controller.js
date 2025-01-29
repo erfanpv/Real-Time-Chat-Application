@@ -2,7 +2,7 @@ import { generateToken } from "../lib/utils.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import cloudinary from "../config/cloudinary.js";
-import asyncHandler from "../middleware/async.handler.js"
+import asyncHandler from "../middleware/async.handler.js";
 import CustomError from "../lib/customError.js";
 
 export const signup = asyncHandler(async (req, res) => {
@@ -22,18 +22,19 @@ export const signup = asyncHandler(async (req, res) => {
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  const newUser = await User.create({ fullName, email, password: hashedPassword });
+  const newUser = await User.create({
+    fullName,
+    email,
+    password: hashedPassword,
+  });
 
   generateToken(newUser._id, res);
 
   res.status(201).json({
-    success: true,
-    user: {
-      _id: newUser._id,
-      fullName: newUser.fullName,
-      email: newUser.email,
-      profilePic: newUser.profilePic,
-    },
+    _id: newUser._id,
+    fullName: newUser.fullName,
+    email: newUser.email,
+    profilePic: newUser.profilePic,
   });
 });
 
@@ -48,13 +49,10 @@ export const login = asyncHandler(async (req, res) => {
   generateToken(user._id, res);
 
   res.status(200).json({
-    success: true,
-    user: {
-      _id: user._id,
-      fullName: user.fullName,
-      email: user.email,
-      profilePic: user.profilePic,
-    },
+    _id: user._id,
+    fullName: user.fullName,
+    email: user.email,
+    profilePic: user.profilePic,
   });
 });
 
@@ -78,9 +76,9 @@ export const updateProfile = asyncHandler(async (req, res) => {
     { new: true }
   );
 
-  res.status(200).json({ success: true, user: updatedUser });
+  res.status(200).json(updatedUser);
 });
 
 export const checkAuth = asyncHandler(async (req, res) => {
-  res.status(200).json({ success: true, user: req.user });
+  res.status(200).json(req.user);
 });
