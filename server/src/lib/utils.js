@@ -10,8 +10,7 @@ export const generateToken = (userId, res) => {
     httpOnly: true, // prevent XSS attacks cross-site scripting attacks
     sameSite: "strict", // CSRF attacks cross-site request forgery attacks
     secure: process.env.NODE_ENV === "production",
-    domain: ".real-time-chat-application-4-sj4n.onrender.com", // Add your domain
-    path: "/",
+   
   });
 
   return token;
