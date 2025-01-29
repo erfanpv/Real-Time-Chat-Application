@@ -27,7 +27,7 @@ app.use(
         origin.startsWith("http://") ||
         origin.startsWith("https://")
       ) {
-        callback(null, true); // Allow all origins
+        callback(null, true); 
       } else {
         callback(new Error("Not allowed by CORS"));
       }
