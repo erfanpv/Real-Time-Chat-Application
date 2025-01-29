@@ -7,6 +7,7 @@ import CustomError from "../lib/customError.js";
 
 export const signup = asyncHandler(async (req, res) => {
   const { fullName, email, password } = req.body;
+  console.log(req.body)
 
   if (!fullName || !email || !password) {
     throw new CustomError(400, "All fields are required");

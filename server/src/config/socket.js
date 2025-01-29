@@ -7,7 +7,19 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:5173"],
+    origin: (origin, callback) => {
+      // Allow requests with no origin or with any http/https origin
+      if (
+        !origin ||
+        origin.startsWith("http://") ||
+        origin.startsWith("https://")
+      ) {
+        callback(null, true); // Allow all origins
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Enable credentials for Socket.IO
   },
 });
 
